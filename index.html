@@ -2664,10 +2664,10 @@
         root.render(<App />);
     </script>
     <script>
-        // Register service worker for offline fallback and background audio
+        // Unregister any cached service workers so updates always load fresh
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                regs.forEach(reg => reg.unregister());
             });
         }
     </script>
