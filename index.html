@@ -77,6 +77,15 @@
 
         .font-young-serif { font-family: 'Young Serif', serif; }
 
+        @font-face {
+            font-family: 'Bristol';
+            src: url('fonts/Bristol.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        .font-bristol { font-family: 'Bristol', serif; }
+
 
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00000020; border-radius: 10px; }
@@ -2582,7 +2591,7 @@
                         <div className="title-container" style={{height: titleHeight}}>
                             {/* JOTTER RADIO (pre-start) */}
                             <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out short:landscape:px-16 ${audio.hasStarted ? 'opacity-0 scale-95 blur-xl pointer-events-none' : 'opacity-100 scale-100 blur-0'}`}>
-                                <h2 className="font-young-serif text-7xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[8rem] short:landscape:text-5xl font-black tracking-tighter uppercase leading-[0.85] sm:leading-none" style={{ color: colors.text }}>
+                                <h2 className="font-bristol text-7xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[8rem] short:landscape:text-5xl font-black tracking-tighter uppercase leading-[0.85] sm:leading-none" style={{ color: colors.text }}>
                                     <span className="block sm:inline">JOTTER</span>{' '}
                                     <span className="block sm:inline">RADIO</span>
                                 </h2>
