@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jotterradio-v1';
+const CACHE_NAME = 'jotterradio-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache for offline fallback
