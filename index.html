@@ -2247,12 +2247,12 @@
                 // Desktop: pb reserves footer clearance; pt:0 keeps original layout
                 const desktop = !landscape && w >= 1024;
                 if (desktop) return { landscape: false, desktop: true, pt: '0', pb: '9rem', coinSz: 300, titleH: '8rem' };
-                // Portrait mobile: footer is ~262px tall so pb must comfortably exceed that.
-                // Reduced pt and coinSz give the coin room to sit clear of the buttons.
-                const pb = `${Math.min(320, Math.max(270, Math.round(h * 0.44)))}px`;
-                const pt = '1.5rem';
-                const coinSz = h < 660 ? 175 : h < 750 ? 195 : 215;
-                return { landscape, desktop: false, pt, pb, coinSz, titleH: '4.5rem' };
+                // Portrait mobile: pb clears the playing footer (~220px after spacing reduction).
+                // pt restored so title breathes below the browser chrome.
+                const pb = `${Math.min(270, Math.max(220, Math.round(h * 0.35)))}px`;
+                const pt = '3rem';
+                const coinSz = h < 630 ? 160 : h < 660 ? 175 : h < 750 ? 195 : 215;
+                return { landscape, desktop: false, pt, pb, coinSz, titleH: '5rem' };
             };
             const [isShortLandscape, setIsShortLandscape] = useState(() => calcLayout().landscape);
             const [isDesktop, setIsDesktop] = useState(() => calcLayout().desktop);
@@ -2518,7 +2518,7 @@
                     <header className="w-full flex-shrink-0 z-10" style={{height:'env(safe-area-inset-top, 12px)'}} />
 
                     <main className={`flex-grow flex flex-col items-center w-full z-10 text-center px-4 sm:px-6 ${isShortLandscape || isDesktop ? 'justify-center' : ''}`}
-                          style={{paddingTop: mainPaddingTop, paddingBottom: mainPaddingBottom}}>
+                          style={{paddingTop: mainPaddingTop, paddingBottom: (!isShortLandscape && !isDesktop && !audio.hasStarted) ? '10rem' : mainPaddingBottom, transition: 'padding-bottom 600ms ease'}}>
                         {/* Title — fixed-height container; both states absolutely centred inside */}
                         <div className="title-container" style={{height: titleHeight}}>
                             {/* JOTTER RADIO (pre-start) */}
@@ -2547,7 +2547,7 @@
                         </div>
 
                         {/* Gap between title and coin — 4rem desktop, 3rem portrait, 1rem landscape */}
-                        <div className="flex-shrink-0" style={{height: isShortLandscape ? '1rem' : isDesktop ? '4rem' : '2rem'}} />
+                        <div className="flex-shrink-0" style={{height: isShortLandscape ? '1rem' : isDesktop ? '4rem' : '3rem'}} />
 
                         {/* Coin + arrows — flex:1 in portrait so coin centres between title and footer */}
                         <div className="flex items-center justify-center w-full space-x-6 sm:space-x-12 md:space-x-20 flex-shrink-0"
@@ -2579,10 +2579,10 @@
                     </main>
 
                     {/* Footer — absolutely anchored to bottom, out of flow so it doesn't skew centering */}
-                    <footer className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-12 md:pb-16 z-10">
+                    <footer className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-6 sm:pb-10 md:pb-16 z-10">
                         <div className="flex flex-col items-center w-full">
                             {audio.hasStarted && (
-                                <div className="grid grid-cols-3 sm:flex sm:flex-row items-center justify-center gap-y-6 gap-x-4 px-6 w-full max-w-sm mx-auto mb-8 landscape-button-spacing mobile-landscape-hidden">
+                                <div className="grid grid-cols-3 sm:flex sm:flex-row items-center justify-center gap-y-3 sm:gap-y-6 gap-x-4 px-6 w-full max-w-sm mx-auto mb-3 sm:mb-8 landscape-button-spacing mobile-landscape-hidden">
                                     <FooterBtn icon={isNightMode ? "sun" : "moon"} label={isNightMode ? "Day" : "Night"} onClick={() => setIsNightMode(!isNightMode)} active={isNightMode} colors={colors} delay={100} />
                                     <FooterBtn label="Vibe" onClick={handleMoodBtnClick} active={nav.selectedMood !== "All"} text={nav.selectedMood !== "All" && nav.selectedMood !== "❤️" ? nav.selectedMood : ""} icon={nav.selectedMood === "❤️" ? "heart" : (nav.selectedMood !== "All" ? "" : "smile")} iconFill={nav.selectedMood === "❤️" ? colors.teal : "none"} colors={colors} delay={200} />
                                     <FooterBtn icon="shuffle" label="Shuffle" onClick={nav.handleShuffleToggle} active={nav.isShuffleMode} colors={colors} delay={300} />
