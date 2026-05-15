@@ -2489,7 +2489,7 @@
 
             const Slug = ({ extraClasses = "" }) => (
                 <p className={`text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black ${extraClasses}`} style={{ color: colors.footerAccent, transition: 'color 1s ease' }}>
-                    created by <a href="https://www.jotter.media" target="_blank" rel="noopener noreferrer" className="hover:text-current outline-none" style={{ color: colors.footerAccent }}>jotter.media</a>
+                    <a href="https://www.jotter.media" target="_top" className="hover:text-current outline-none" style={{ color: colors.footerAccent }}>← back to jotter.media</a>
                 </p>
             );
 
@@ -2614,11 +2614,6 @@
                                     style={{ color: colors.footerAccent, transition: 'color 1s ease' }}>
                                     <Icon name="info" size="16" strokeWidth={1.5} fill="none" />
                                 </button>
-                                <a href="https://www.jotter.media" target="_top" style={{ color: colors.text, opacity: 0.35, fontSize: '9px', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', textDecoration: 'none', transition: 'opacity 0.2s' }}
-                                    onMouseEnter={e => e.currentTarget.style.opacity = 0.7}
-                                    onMouseLeave={e => e.currentTarget.style.opacity = 0.35}>
-                                    ← jotter.media
-                                </a>
                             </div>
                         </div>
                     </footer>
