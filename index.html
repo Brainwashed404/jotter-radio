@@ -2247,13 +2247,12 @@
                 // Desktop: pb reserves footer clearance; pt:0 keeps original layout
                 const desktop = !landscape && w >= 1024;
                 if (desktop) return { landscape: false, desktop: true, pt: '0', pb: '9rem', coinSz: 300, titleH: '8rem' };
-                // Portrait mobile: pb reserves space for the footer so the coin (flex:1) sits
-                // perfectly centred between the station info and the footer buttons.
-                // Footer when playing ≈ h * 0.31. CoinSz smaller on short screens.
-                const pb = `${Math.min(340, Math.max(240, Math.round(h * 0.38)))}px`;
-                const pt = '3.5rem';
-                const coinSz = h < 720 ? 220 : 250;
-                return { landscape, desktop: false, pt, pb, coinSz, titleH: '5rem' };
+                // Portrait mobile: footer is ~262px tall so pb must comfortably exceed that.
+                // Reduced pt and coinSz give the coin room to sit clear of the buttons.
+                const pb = `${Math.min(320, Math.max(270, Math.round(h * 0.44)))}px`;
+                const pt = '1.5rem';
+                const coinSz = h < 660 ? 175 : h < 750 ? 195 : 215;
+                return { landscape, desktop: false, pt, pb, coinSz, titleH: '4.5rem' };
             };
             const [isShortLandscape, setIsShortLandscape] = useState(() => calcLayout().landscape);
             const [isDesktop, setIsDesktop] = useState(() => calcLayout().desktop);
@@ -2548,7 +2547,7 @@
                         </div>
 
                         {/* Gap between title and coin — 4rem desktop, 3rem portrait, 1rem landscape */}
-                        <div className="flex-shrink-0" style={{height: isShortLandscape ? '1rem' : isDesktop ? '4rem' : '3rem'}} />
+                        <div className="flex-shrink-0" style={{height: isShortLandscape ? '1rem' : isDesktop ? '4rem' : '2rem'}} />
 
                         {/* Coin + arrows — flex:1 in portrait so coin centres between title and footer */}
                         <div className="flex items-center justify-center w-full space-x-6 sm:space-x-12 md:space-x-20 flex-shrink-0"
